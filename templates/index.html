@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    p {
+        font-size: 20px;
+    }
+    .mr-10 {
+        margin-right: 10rem !important;
+    }
+    .ml-7 {
+        margin-left: 7rem !important;
+    }
+    .btn-links {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+<div class="container-fluid">
+    <table class="table mt-5">
+        <thead class="table-secondary">
+            <th style="width: 60%;" class="text-center">Todo</th>
+            <th style="width: 10%;" class="text-center">Edit</th>
+            <th style="width: 10%;" class="text-center">Delete</th>
+            <th style="width: 20%;" class="text-center">completed</th>
+        </thead>
+        <tbody>
+            {% for todo in todos %}
+            <tr>
+                {% if todo.is_completed %}
+                    <td class="font-weight-light"><del><p>{{ todo.todo }}</p></del></td>
+                {% else %}
+                    <td class=""><p>{{ todo.todo }}</p></td>
+                {% endif %}
+                <td class="text-center">
+                    <a href="{{ url_for('edit_todo', todo_id=todo.id) }}" class="btn btn-primary pr-3 pl-3" >Edit</a>
+                </td>
+                <td class="text-center">
+                    <a href="{{ url_for('delete', todo_id=todo.id) }}" class="btn btn-danger">Delete</a>
+                </td>
+                <td class="text-center">
+                    <a href="{{ url_for('toggle_completed', todo_id=todo.id) }}" class="btn btn-success">Toggle Completed</a>
+                </td>
+            </tr>
+            {% endfor%}
+        </tbody>
+    </table>
+    <hr>
+    {% if todos.count() != 0 %}
+    <div class="btn-links mt-5">
+        <a href="{{ url_for('delete_completed') }}" class="btn btn-warning mr-3 pr-3 pl-3">Delete completed</a>
+        <a href="{{ url_for('toggle_all') }}" class="btn btn-primary mr-3 pl-5 pr-5">Toggle all</a>
+        <a href="{{ url_for('delete_all') }}" class="btn btn-danger pl-5 pr-5">Delete All</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}
