@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/notepad.png') }}" type="image/png">
-    <style>
-    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -30,12 +28,6 @@
         </div>
     </nav>
     <div class="container">
-        <form class="mt-5 inline-form" action="{{ url_for('new') }}" method="POST">
-            <div class="row">
-                <input name='todo' class="ml-md-5 form-control col-md-8 mr-md-5" type="text" placeholder="Add Todo item" min="1" max="150" size="60" required>
-                <button class="btn btn-primary col-md-2" type="submit">Add Todo</button>
-            </div>
-        </form>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -45,6 +37,12 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
+        <form class="mt-5 inline-form" action="{{ url_for('new') }}" method="POST">
+            <div class="row">
+                <input name='todo' class="ml-md-5 form-control col-md-8 mr-md-5" type="text" placeholder="Add Todo item" min="1" max="150" size="60" required>
+                <button class="btn btn-primary col-md-2" type="submit">Add Todo</button>
+            </div>
+        </form>
 
         {% block content %}
         {% endblock content %}
